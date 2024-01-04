@@ -4,15 +4,19 @@ import com.erp.webtoon.domain.Document;
 import com.erp.webtoon.domain.DocumentData;
 import com.erp.webtoon.domain.DocumentRcv;
 import com.erp.webtoon.domain.User;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
-@Builder
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DayOffDocumentRequestDto {
 
     @NotBlank

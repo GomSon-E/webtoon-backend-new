@@ -2,13 +2,17 @@ package com.erp.webtoon.dto.plas;
 
 import com.erp.webtoon.domain.Document;
 import com.erp.webtoon.domain.DocumentData;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DocumentDataDto {
 
     private LocalDateTime fromDate; // 시작일시

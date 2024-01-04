@@ -3,14 +3,18 @@ package com.erp.webtoon.dto.plas;
 import com.erp.webtoon.domain.Document;
 import com.erp.webtoon.domain.DocumentRcv;
 import com.erp.webtoon.domain.User;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-@Builder
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class DocumentRcvRequestDto {
 
     @NotNull
