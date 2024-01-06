@@ -17,6 +17,7 @@ import com.erp.webtoon.repository.DocumentRcvRepository;
 import com.erp.webtoon.repository.DocumentRepository;
 import com.erp.webtoon.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -32,6 +33,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional
+@Slf4j
 public class PlasService {
 
     private final DocumentRepository documentRepository;
@@ -146,9 +148,10 @@ public class PlasService {
         }
 
         // 문서 수신자 저장
-        if (dto.getDocumentDataRequests() != null && !dto.getDocumentRcvRequests().isEmpty()) {
+        if (dto.getDocumentRcvRequests() != null && !dto.getDocumentRcvRequests().isEmpty()) {
             List<DocumentRcv> documentRcvList = dto.getDocumentRcvRequests().stream()
                     .map(rcvRequestDto -> {
+                        log.info(rcvRequestDto.getRcvEmployeeId() + "사원의 수신자 타입은 " + rcvRequestDto.getReceiveType());
                         User rcvUser = userRepository.findByEmployeeId(rcvRequestDto.getRcvEmployeeId())
                                 .orElseThrow(() -> new EntityNotFoundException("존재하지 않는 결재자/참조자 정보입니다."));
 
