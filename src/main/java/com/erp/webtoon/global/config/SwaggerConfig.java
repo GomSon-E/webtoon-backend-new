@@ -1,4 +1,4 @@
-package com.erp.webtoon;
+package com.erp.webtoon.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,9 +25,9 @@ public class SwaggerConfig implements WebMvcConfigurer {
     apiInfo:Swagger UI 로 노출할 정보
     */
 
-    private static final String SERVICE_NAME = "Reborn API";
+    private static final String SERVICE_NAME = "FearNotToon ERP API";
     private static final String API_VERSION = "0.01";
-    private static final String API_DESCRIPTION = "Reborn API 명세서";
+    private static final String API_DESCRIPTION = "FearNotToon ERP API 명세서";
     private static final String API_URL = "http://localhost:8080/";
 
     @Bean
