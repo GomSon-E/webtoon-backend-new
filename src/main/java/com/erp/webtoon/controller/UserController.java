@@ -14,6 +14,7 @@ import com.erp.webtoon.dto.user.UserResponseDto;
 import com.erp.webtoon.dto.user.UserUpdateDto;
 import com.erp.webtoon.service.FileService;
 import com.erp.webtoon.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -49,47 +50,51 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("/users")
 public class UserController {
-    private final UserService userService;
 
+    private final UserService userService;
     private final FileService fileService;
 
+    @ApiOperation(value = "직원 등록")
     @PostMapping
     public ResponseEntity add(@Valid @RequestPart("dto") UserRequestDto userRequestDto, @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
         userService.addNewCome(userRequestDto, file);
         return new ResponseEntity(HttpStatus.CREATED);
     }
 
+    @ApiOperation(value = "로그인")
     @PostMapping("/login")
     public TokenResponseDto login(@RequestBody LoginRequestDto loginDto) {
         return userService.issueToken(loginDto.getEmployeeId(), loginDto.getPassword());
     }
 
+    @ApiOperation(value = "리프레쉬 토큰 재발급")
     @PostMapping("/reissue")
     public TokenResponseDto reissue(@RequestHeader(HttpHeaders.AUTHORIZATION) String accessToken, @CookieValue("refresh_token") String refreshToken) throws Exception {
         return userService.reissueToken(accessToken, refreshToken);
     }
 
+    @ApiOperation(value = "임시 비밀번호 발급")
     @PostMapping("/tempPassword/{employeeId}")
     public ResponseEntity issueTempPassword(@PathVariable String employeeId) throws Exception {
         userService.resetPassword(employeeId);
         return ResponseEntity.ok("임시 비밀번호 발급에 성공했습니다.");
     }
 
+    @ApiOperation(value = "비밀번호 변경")
     @PostMapping("/newPassword")
     public ResponseEntity changePassword(@RequestBody NewPasswordDto dto) throws Exception {
         userService.changePassword(dto);
         return ResponseEntity.ok("비밀번호 변경에 성공했습니다.");
     }
 
+    @ApiOperation(value = "로그아웃")
     @PostMapping("/logout")
     public ResponseEntity logout(@RequestHeader(HttpHeaders.AUTHORIZATION) String accessToken) {
         userService.logout(accessToken);
         return ResponseEntity.ok("로그아웃에 성공했습니다.");
     }
 
-    /**
-     * 직원 개별 조회
-     */
+    @ApiOperation(value = "직원 개별 조회")
     @GetMapping("/{employeeId}")
     public ResponseEntity singleView(@PathVariable String employeeId) throws MalformedURLException {
 
@@ -102,9 +107,7 @@ public class UserController {
         return ResponseEntity.ok(new Result(photo.getURL(), userResponseDto));
     }
 
-    /**
-     * 직원조회 -> 카드뷰
-     */
+    @ApiOperation(value = "직원 카드뷰 조회")
     @GetMapping
     public ResponseEntity cardView() {
         List<UserListResponseDto> dtos = userService.getCardView();
@@ -112,40 +115,33 @@ public class UserController {
         return ResponseEntity.ok(dtos);
     }
 
-    /**
-     * 직원 정보 수정
-     */
+    @ApiOperation(value = "직원 정보 수정")
     @PatchMapping
     public void update(@RequestBody UserUpdateDto dto) {
         userService.update(dto);
     }
 
+    @ApiOperation(value = "퇴사자 처리")
     @PatchMapping("{employeeId}")
     public ResponseEntity retire(@PathVariable String employeeId) {
         userService.retire(employeeId);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    /**
-     * 자격증 추가(인사팀)
-     */
+    @ApiOperation(value = "자격사항 등록")
     @PostMapping("/qualification")
     public List<RegisterQualificationResponse> registerQualification(@RequestBody List<QualificationRequestDto> qualificationRequestDtoList) {
         return userService.registerQualification(qualificationRequestDtoList);
     }
 
-    /**
-     * 자격증 수정
-     */
+    @ApiOperation(value = "자격사항 수정")
     @PatchMapping("/qualification")
     public ResponseEntity modifyQualification(@RequestBody List<QualificationModifyRequestDto> qualificationModifyRequestDtoList) {
         userService.updateQualification(qualificationModifyRequestDtoList);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    /**
-     * 자격증 삭제
-     */
+    @ApiOperation(value = "자격사항 삭제")
     @DeleteMapping("/qualification")
     public ResponseEntity deleteQualification(@RequestBody List<QualificationDeleteRequestDto> qualificationDeleteRequestDtoList) {
         userService.deleteQualification(qualificationDeleteRequestDtoList);
