@@ -2,6 +2,8 @@ package com.erp.webtoon.controller;
 
 import com.erp.webtoon.domain.File;
 import com.erp.webtoon.service.FileService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
@@ -21,9 +23,7 @@ public class FileController {
 
     private final FileService fileService;
 
-    /**
-     * 업로드한 파일 다운로드
-     */
+    @ApiOperation(value = "업로드한 파일 다운로드")
     @GetMapping("/download/{fileId}")
     public ResponseEntity<Resource> downloadFile(@PathVariable("fileId") Long fileId) throws MalformedURLException {
         File findFile = fileService.find(fileId);
