@@ -5,6 +5,7 @@ import com.erp.webtoon.dto.plan.PlanRequestDto;
 import com.erp.webtoon.dto.plan.PlanResponseDto;
 import com.erp.webtoon.dto.plan.PlanUpdateDto;
 import com.erp.webtoon.service.PlanService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,18 +19,14 @@ public class PlanController {
 
     private final PlanService planService;
 
-    /**
-     * 일정등록
-     */
+    @ApiOperation(value = "일정 등록")
     @PostMapping("/plans")
     public ResponseEntity save(@RequestBody PlanRequestDto dto) {
         Long planId =  planService.save(dto);
         return ResponseEntity.ok(planId);
     }
 
-    /**
-     * 홈 화면 일정
-     */
+    @ApiOperation(value = "일정 캘린더 조회")
     @GetMapping("/plans")
     public ResponseEntity showAll() {
         List<PlanListDto> plans = planService.getHomePlans();
@@ -37,9 +34,7 @@ public class PlanController {
         return ResponseEntity.ok(plans);
     }
 
-    /**
-     * 일정 개별 조회
-     */
+    @ApiOperation(value = "일정 개별 조회")
     @GetMapping("/plans/{planId}")
     public ResponseEntity showOne(@PathVariable("planId") Long planId) {
         PlanResponseDto findPlan = planService.getPlan(planId);
@@ -47,9 +42,7 @@ public class PlanController {
         return ResponseEntity.ok(findPlan);
     }
 
-    /**
-     * 일정 전체 조회
-     */
+    @ApiOperation(value = "일정 목록 조회")
     @GetMapping("/plans/list")
     public ResponseEntity getAll() {
         List<PlanResponseDto> plans = planService.getAllPlan();
@@ -57,19 +50,14 @@ public class PlanController {
         return ResponseEntity.ok(plans);
     }
 
-
-    /**
-     * 일정 수정
-     */
+    @ApiOperation(value = "일정 수정")
     @PutMapping("/plans/{planId}")
     public ResponseEntity update(@PathVariable("planId") Long planId, @RequestBody PlanUpdateDto dto) {
         planService.update(planId, dto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    /**
-     * 일정삭제
-     */
+    @ApiOperation(value = "일정 삭제")
     @DeleteMapping("/plans/{planId}")
     public ResponseEntity delete(@PathVariable Long planId) {
         planService.delete(planId);
