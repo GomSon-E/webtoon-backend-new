@@ -7,6 +7,7 @@ import com.erp.webtoon.dto.webtoon.WebtoonDtResponseDto;
 import com.erp.webtoon.dto.webtoon.WebtoonDtUpdateDto;
 import com.erp.webtoon.service.FileService;
 import com.erp.webtoon.service.WebtoonDtService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -35,12 +36,9 @@ import java.util.List;
 public class WebtoonDtController {
 
     private final WebtoonDtService webtoonDtService;
-
     private final FileService fileService;
 
-    /**
-     * 개별 웹툰 에피소드 등록
-     */
+    @ApiOperation(value = "웹툰 회차 등록")
     @PostMapping("/webtoonDt")
     public ResponseEntity upload(@RequestPart WebtoonDtRequestDto dto, @RequestPart("thumbnailFile") MultipartFile thumbnailFile,
                                  @RequestPart("webtoonFile") MultipartFile webtoonFile) throws IOException {
@@ -51,18 +49,13 @@ public class WebtoonDtController {
         return ResponseEntity.ok(successMsg);
     }
 
-    /**
-     * 최종 업로드
-     */
+    @ApiOperation(value = "웹툰 회차 최종 업로드 처리")
     @PostMapping("/webtoonDt/{webtoonDtId}")
     public void uploadFinal(@PathVariable Long webtoonDtId) {
         webtoonDtService.finalUpload(webtoonDtId);
     }
 
-
-    /**
-     * 회차 별 조회
-     */
+    @ApiOperation(value = "웹툰 회차 개별 조회")
     @GetMapping("/webtoonDt/{webtoonDtId}")
     public ResponseEntity<Result> getImage(@PathVariable("webtoonDtId") Long webtoonDtId) throws MalformedURLException {
         WebtoonDtResponseDto dto = webtoonDtService.showOne(webtoonDtId);
@@ -73,9 +66,7 @@ public class WebtoonDtController {
         return ResponseEntity.ok(new Result(resourceThumb.getURL(), resourceEpisode.getURL(), dto));
     }
 
-    /**
-     * 회차 수정
-     */
+    @ApiOperation(value = "웹툰 회차 정보 수정")
     @PutMapping("/webtoonDt/{webtoonDtId}")
     public ResponseEntity update(@PathVariable Long webtoonDtId, @RequestPart("dto") WebtoonDtUpdateDto dto,
                                  @RequestPart(value = "thumbnailFile", required = false) MultipartFile thumbnailFile,
@@ -85,18 +76,14 @@ public class WebtoonDtController {
         return ResponseEntity.ok(redirect(webtoonDtId));
     }
 
-    /**
-     * 회차 삭제
-     */
+    @ApiOperation(value = "웹툰 회차 삭제")
     @DeleteMapping("/webtoonDt/{webtoonDtId}")
     public ResponseEntity delete(@PathVariable Long webtoonDtId) {
         webtoonDtService.delete(webtoonDtId);
         return ResponseEntity.ok(redirect(webtoonDtId));
     }
 
-    /**
-        피드백 등록
-     */
+    @ApiOperation(value = "피드백 등록")
     @PostMapping ("/webtoonDt/feedBack")
     public List<FeedbackListDto> registerFeedBack(@RequestBody FeedbackSaveDto dto) throws IOException {
         webtoonDtService.addFeedbackMsg(dto);
