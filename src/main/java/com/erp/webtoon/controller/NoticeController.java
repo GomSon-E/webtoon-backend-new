@@ -6,6 +6,7 @@ import com.erp.webtoon.dto.notice.NoticeRequestDto;
 import com.erp.webtoon.dto.notice.NoticeResponseDto;
 import com.erp.webtoon.dto.notice.NoticeUpdateDto;
 import com.erp.webtoon.service.NoticeService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +32,7 @@ public class NoticeController {
 
     private final NoticeService noticeService;
 
-    /**
-     * 공지사항 등록
-     */
+    @ApiOperation(value = "공지사항 등록")
     @PostMapping("/notice")
     public ResponseEntity<Result> save(@RequestPart NoticeRequestDto dto, @RequestPart("files")List<MultipartFile> files) throws IOException {
         noticeService.save(dto, files);
@@ -41,9 +40,7 @@ public class NoticeController {
         return ResponseEntity.ok(new Result(redirect(), null));
     }
 
-    /**
-     * 공지사항 전체 조회 (List)
-     */
+    @ApiOperation(value = "공지사항 목록 조회")
     @GetMapping("/notice")
     public ResponseEntity getAllNotice() {
 
@@ -51,9 +48,7 @@ public class NoticeController {
         return ResponseEntity.ok(allNotice);
     }
 
-    /**
-     * 공지사항 개별 조회
-     */
+    @ApiOperation(value = "공지사항 개별 조회")
     @GetMapping("/notice/{noticeId}")
     public ResponseEntity getNotice(@PathVariable("noticeId") Long noticeId) {
         NoticeResponseDto responseDto = noticeService.find(noticeId);
@@ -61,10 +56,7 @@ public class NoticeController {
         return ResponseEntity.ok(responseDto);
     }
 
-
-    /**
-     * 공지사항 카드뷰 조회 (메인화면에서)
-     */
+    @ApiOperation(value = "공지사항 카드뷰 조회")
     @GetMapping("/home")
     public ResponseEntity getCardNotice() {
         List<NoticeCardViewDto> dtoList = noticeService.findCardNotice();
@@ -72,9 +64,7 @@ public class NoticeController {
         return new ResponseEntity(dtoList, HttpStatus.OK);
     }
 
-    /**
-     * 공지사항 수정 (리다이렉트)
-     */
+    @ApiOperation(value = "공지사항 수정")
     @PutMapping("/notice/{noticeId}")
     public ResponseEntity<Result> update(@PathVariable Long noticeId, @RequestPart NoticeUpdateDto dto, @RequestPart(required = false) List<MultipartFile> files ) throws IOException {
         List<Long> fileIds = noticeService.update(noticeId, dto, files);
@@ -82,10 +72,7 @@ public class NoticeController {
         return ResponseEntity.ok(new Result(redirect(), fileIds));
     }
 
-
-    /**
-     * 공지사항 삭제
-     */
+    @ApiOperation(value = "공지사항 삭제")
     @DeleteMapping("/notice/{noticeId}")
     public ResponseEntity delete(@PathVariable Long noticeId) {
         noticeService.delete(noticeId);
