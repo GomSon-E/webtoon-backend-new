@@ -12,6 +12,7 @@ import com.erp.webtoon.dto.itsm.RequestDeleteDto;
 import com.erp.webtoon.dto.itsm.RequestDto;
 import com.erp.webtoon.dto.itsm.RequestRegisterResponseDto;
 import com.erp.webtoon.service.RequestService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,40 +38,44 @@ import java.util.List;
 public class RequestController {
     private final RequestService requestService;
 
+    @ApiOperation(value = "장비 구매 요청")
     @PostMapping("/purchase-request")
     public RequestRegisterResponseDto purchaseRequest(@RequestPart("dto") RequestDto requestDto, @RequestPart(value = "files", required = false)List<MultipartFile> files) throws Exception {
         return requestService.purchaseRequest(requestDto, files);
     }
 
+    @ApiOperation(value = "업무 지원 요청")
     @PostMapping("/request")
     public RequestRegisterResponseDto Request(@RequestPart("dto") RequestDto requestDto, @RequestPart(value = "files", required = false)List<MultipartFile> files) throws Exception {
         return requestService.assistRequest(requestDto, files);
     }
 
+    @ApiOperation(value = "개발부 담당자 조회")
     @GetMapping("/IT-manager")
     public List<ItEmployeeResponseDto> findItManager() {
         return requestService.searchItEmployee();
     }
 
+    @ApiOperation(value = "요청 삭제")
     @DeleteMapping("/request")
     public ResponseEntity deleteRequest(@RequestBody List<RequestDeleteDto> requestIds) {
         requestService.deleteRequest(requestIds);
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
+    @ApiOperation(value = "코멘트 등록")
     @PostMapping ("/comment")
     public CommentResponseDto registerComment(@RequestBody CommentSaveDto commentSaveDto) throws IOException {
         return requestService.registerComment(commentSaveDto);
     }
 
+    @ApiOperation(value = "코멘트 목록 조회")
     @GetMapping("/comment")
     public List<CommentListDto> getAllComments(@RequestParam("requestId") Long requestId) {
         return requestService.getAllComments(requestId);
     }
 
-    /**
-     * 요청 상세 조회
-     */
+    @ApiOperation(value = "요청 개별 조회")
     @GetMapping("/request/{requestId}")
     public ResponseEntity showOne(@PathVariable Long requestId) {
         RequestResponseDto request = requestService.search(requestId);
@@ -78,33 +83,28 @@ public class RequestController {
         return ResponseEntity.ok(request);
     }
 
-    /**
-     * 사원 별 과거 요청 리스트 조회
-     */
+    @ApiOperation(value = "사원별 요청 목록 조회")
     @GetMapping("/request/list/{employeeId}")
     public ResponseEntity showUserReqList(@PathVariable String employeeId) {
         List<RequestListResponseDto> requestList = requestService.searchUserList(employeeId);
         return ResponseEntity.ok(requestList);
     }
 
-    /**
-     * IT팀 서비스 요청 전체 리스트 조회
-     */
+    @ApiOperation(value = "요청 전체 조회")
     @GetMapping("/request/all/{employeeId}")
     public ResponseEntity showAllList(@PathVariable String employeeId) throws IllegalAccessException {
         List<RequestListResponseDto> requestList = requestService.searchAllList(employeeId);
         return ResponseEntity.ok(requestList);
     }
 
-    /**
-     * 단계 변경
-     */
+    @ApiOperation(value = "요청 단계 변경")
     @PutMapping("/request/step/{requestId}")
     public ResponseEntity changeStep(@PathVariable Long requestId, @RequestBody RequestStepDto dto) {
         requestService.changeStep(requestId, dto);
         return new ResponseEntity(HttpStatus.OK);
     }
 
+    @ApiOperation(value = "코멘트 삭제")
     @DeleteMapping("/comment")
     public ResponseEntity deleteComment(@RequestParam("messageId") Long messageId) {
         requestService.deleteComment(messageId);
