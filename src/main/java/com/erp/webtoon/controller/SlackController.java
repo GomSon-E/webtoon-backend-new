@@ -2,6 +2,7 @@ package com.erp.webtoon.controller;
 
 
 import com.erp.webtoon.service.SlackService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Slf4j
 public class SlackController {
 
-    @Autowired
-    SlackService slackService;
+    private final SlackService slackService;
 
+    @ApiOperation(value = "슬랙 메시지 테스트")
     @GetMapping("/slack/{channel}")
     public void test(@PathVariable String channel) {
 
