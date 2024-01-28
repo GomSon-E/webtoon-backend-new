@@ -7,6 +7,7 @@ import com.erp.webtoon.dto.webtoon.WebtoonResponseDto;
 import com.erp.webtoon.dto.webtoon.WebtoonUpdaateDto;
 import com.erp.webtoon.service.FileService;
 import com.erp.webtoon.service.WebtoonService;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -36,9 +37,7 @@ public class WebtoonController {
     private final WebtoonService webtoonService;
     private final FileService fileService;
 
-    /**
-     * 웹툰 등록
-     */
+    @ApiOperation(value = "웹툰 등록")
     @PostMapping("/webtoon")
     public ResponseEntity save(@RequestPart("dto") WebtoonRequestDto dto, @RequestPart("file") MultipartFile file) throws IOException {
         Long id = webtoonService.save(dto, file);
@@ -51,19 +50,14 @@ public class WebtoonController {
         return ResponseEntity.ok(new Result(uri, body));
     }
 
-    /**
-     * 웹툰 카드뷰
-     */
+    @ApiOperation(value = "웹툰 카드뷰 조회")
     @GetMapping("/webtoon/cardview")
     public ResponseEntity showCardView() throws MalformedURLException {
         WebtoonAllCardViewDto weekWebtoon = webtoonService.getWeekWebtoon();
         return ResponseEntity.ok(weekWebtoon);
     }
 
-
-    /**
-     * 등록된 모든 웹툰 조회
-     */
+    @ApiOperation(value = "웹툰 목록 조회")
     @GetMapping("/webtoon")
     public ResponseEntity showAll() {
         List<WebtoonListResponseDto> dtos = webtoonService.getAllWebtoon();
@@ -71,10 +65,7 @@ public class WebtoonController {
         return ResponseEntity.ok(dtos);
     }
 
-
-    /**
-     * 특정 웹툰 조회
-     */
+    @ApiOperation(value = "웹툰 개별 조회")
     @GetMapping("/webtoon/{webtoonId}")
     public ResponseEntity getWebtoon(@PathVariable("webtoonId") Long webtoonId) throws MalformedURLException {
         WebtoonResponseDto webtoon = webtoonService.getOneWebtoon(webtoonId);
@@ -85,9 +76,7 @@ public class WebtoonController {
 
     }
 
-    /**
-     * 웹툰 수정
-     */
+    @ApiOperation(value = "웹툰 정보 수정")
     @PutMapping("/webtoon/{webtoonId}")
     public ResponseEntity update(@PathVariable Long webtoonId, @RequestPart("dto") WebtoonUpdaateDto dto, @RequestPart(value = "file", required = false) MultipartFile file) throws IOException {
         webtoonService.update(webtoonId,file, dto);
