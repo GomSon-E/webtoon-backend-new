@@ -1,5 +1,7 @@
 package com.erp.webtoon.dto.attendance;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,34 +9,49 @@ import java.util.List;
 
 @Builder
 @Data
+@ApiModel(description = "실시간 전체 근태 현황 요약 DTO")
 public class TotalAttendanceSummaryDto {
 
-    private Long totalUserCnt;          // 전체 직원수
+    @ApiModelProperty(value = "전체 직원수", example = "150")
+    private Long totalUserCnt;
 
-    private List<TotalAttendanceUserListDto> totalUserList;       // 전체 직원 리스트
+    @ApiModelProperty(value = "전체 직원 리스트")
+    private List<TotalAttendanceUserListDto> totalUserList;
 
-    private Long onTimeStartUserCnt;    // 정상 출근 직원수
+    @ApiModelProperty(value = "정상 출근 직원수", example = "120")
+    private Long onTimeStartUserCnt;
 
-    private List<TotalAttendanceUserListDto> onTimeStartUserList; // 정상 출근 직원 리스트
+    @ApiModelProperty(value = "정상 출근 직원 리스트")
+    private List<TotalAttendanceUserListDto> onTimeStartUserList;
 
-    private Long lateStartUserCnt;      // 지각 출근 직원수
+    @ApiModelProperty(value = "지각 출근 직원수", example = "20")
+    private Long lateStartUserCnt;
 
-    private List<TotalAttendanceUserListDto> lateStartUserList;   // 지각 출근 직원 리스트
+    @ApiModelProperty(value = "지각 출근 직원 리스트")
+    private List<TotalAttendanceUserListDto> lateStartUserList;
 
-    private Long notStartUserCnt;       // 미출근 직원수
+    @ApiModelProperty(value = "미출근 직원수", example = "10")
+    private Long notStartUserCnt;
 
-    private List<TotalAttendanceUserListDto> notStartUserList;    // 미출근 직원 리스트
+    @ApiModelProperty(value = "미출근 직원 리스트")
+    private List<TotalAttendanceUserListDto> notStartUserList;
 
-    private Long dayOffUserCnt;         // 휴가 직원수
+    @ApiModelProperty(value = "휴가 직원수", example = "5")
+    private Long dayOffUserCnt;
 
-    private List<TotalAttendanceUserListDto> dayOffUserList;      // 휴가 직원 리스트
+    @ApiModelProperty(value = "휴가 직원 리스트")
+    private List<TotalAttendanceUserListDto> dayOffUserList;
 
-    private Long onTimeEndUserCnt;      // 정상 퇴근 직원수
+    @ApiModelProperty(value = "정상 퇴근 직원수", example = "130")
+    private Long onTimeEndUserCnt;
 
-    private List<TotalAttendanceUserListDto> onTimeEndUserList;   // 정상 퇴근 직원 리스트
+    @ApiModelProperty(value = "정상 퇴근 직원 리스트")
+    private List<TotalAttendanceUserListDto> onTimeEndUserList;
 
-    private Long notEndUserCnt;         // 연장근무 직원수
+    @ApiModelProperty(value = "연장근무 직원수", example = "10")
+    private Long notEndUserCnt;
 
-    private List<TotalAttendanceUserListDto> notEndUserList;      // 연장근무 직원 리스트
+    @ApiModelProperty(value = "연장근무 직원 리스트")
+    private List<TotalAttendanceUserListDto> notEndUserList;
 
 }
