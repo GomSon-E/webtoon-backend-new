@@ -1,16 +1,22 @@
 package com.erp.webtoon.dto.itsm;
 
 import com.erp.webtoon.domain.RequestDt;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 @Data
+@ApiModel(description = "요청 상세 목록 조회 응답 DTO")
 public class RequestDtResponseDto {
 
-    private String content; // 상세 내용
+    @ApiModelProperty(value = "요청 상세 내용", example = "노트북")
+    private String content;
 
-    private int count;  // 수량
+    @ApiModelProperty(value = "요청 개수", example = "2")
+    private int count;
 
-    private int cost;   // 가격
+    @ApiModelProperty(value = "비용", example = "3000000")
+    private int cost;
 
     public RequestDtResponseDto(RequestDt requestDt) {
         this.content = requestDt.getContent();

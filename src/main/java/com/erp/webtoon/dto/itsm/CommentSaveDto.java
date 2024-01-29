@@ -2,6 +2,8 @@ package com.erp.webtoon.dto.itsm;
 
 import com.erp.webtoon.domain.Message;
 import com.erp.webtoon.domain.User;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,25 +15,30 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(description = "코멘트 등록 요청 DTO")
 public class CommentSaveDto {
 
-    @Builder.Default
-    private String msgType = "COMMENT";     // 메세지 타입
+    @ApiModelProperty(value = "메시지 타입", hidden = true)
+    private String msgType;
 
+    @ApiModelProperty(value = "메시지 내용", required = true, example = "코멘트가 등록되었습니다.")
     @NotBlank
-    private String content;     // 메세지 내용
+    private String content;
 
+    @ApiModelProperty(value = "참조 ID", required = true, example = "1")
     @NotBlank
-    private Long refId; // 참조 ID
+    private Long refId;
 
-    private String programId;    // 참조 프로그램ID
+    @ApiModelProperty(value = "참조 프로그램 ID", required = true, example = "purchaseRequest")
+    private String programId;
 
+    @ApiModelProperty(value = "발신자 사번", required = true, example = "20200501")
     @NotBlank
     private String sendEmpId;
 
     public Message toEntity(User sendUser) {
         return Message.builder()
-                .msgType(msgType)
+                .msgType("COMMENT")
                 .content(content)
                 .refId(refId)
                 .programId(programId)
