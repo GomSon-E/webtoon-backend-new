@@ -1,22 +1,31 @@
 package com.erp.webtoon.dto.message;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Data;
 
 @Builder
 @Data
+@ApiModel(description = "메시지 목록 조회 응답 DTO")
 public class MessageListDto {
 
-    private Long messageId;         // 메시지 ID
+    @ApiModelProperty(value = "메시지 ID", example = "1")
+    private Long messageId;
 
-    private String content;         // 메세지 내용
+    @ApiModelProperty(value = "메세지 내용", example = "새로운 요청이 등록되었습니다.")
+    private String content;
 
-    private Long refId;             // 참조 ID
+    @ApiModelProperty(value = "참조 ID", example = "1")
+    private Long refId;
 
-    private String programId;       // 참조 프로그램ID
+    @ApiModelProperty(value = "참조 프로그램 ID", example = "purchaseRequest")
+    private String programId;
 
-    private String sendEmployeeId;  // 발신자 사번
+    @ApiModelProperty(value = "발신자 사번", example = "20200501")
+    private String sendEmployeeId;
 
-    private String sendName;        // 발신자명
+    @ApiModelProperty(value = "발신자명", example = "홍길동")
+    private String sendName;
 
 }
