@@ -4,8 +4,6 @@
 
 ## 🐈‍⬛ GitHub
 
----
-
 [https://github.com/GomSon-E/webtoon-backend-new](https://github.com/GomSon-E/webtoon-backend-new)
 
 [https://github.com/webtoon-erp/front](https://github.com/webtoon-erp/front)
@@ -13,8 +11,6 @@
 <br/>
 
 ## 📢 Introduction
-
----
 
 ### Project
 
@@ -36,8 +32,6 @@
 <br/>
 
 ## 🌟 Main Features
-
----
 
 ### 공통
 
@@ -67,18 +61,12 @@
 
 ## 🙋‍♀️ My Contribution
 
----
-
 ### Team Leader
-
----
 
 - 프로젝트 기획 / 팀 모집 / 회의 주관 및 문서 생산
 - DB 설계 / 배포
 
 ### Back-end
-
----
 
 - **공통 - Slack 연동 메시지 & 알림봇 기능 구현**
     - 전체 메시지 / 개인 메시지 전송
@@ -98,8 +86,6 @@
 
 ### Front-end
 
----
-
 - **오픈소스 적용**
     - AG-Grid / Tiny Editor
 
@@ -109,8 +95,6 @@
 <br/>
 
 ## ⚙️ Skills & Tools
-
----
 
 ### Back-end
 
@@ -143,8 +127,6 @@
 
 ## 🌐 ERD
 
----
-
 ✅ 자세한 ERD는 링크를 클릭해 확인할 수 있습니다.
 
 - 🔗 [Go to ERD Cloud](https://www.erdcloud.com/d/B4PRdozg28gETzAC9)
@@ -154,8 +136,6 @@
 <br/>
 
 ## 💼 Documents
-
----
 
 ✅ 문서 내용은 링크를 클릭하거나 첨부 파일을 통해 확인할 수 있습니다.
 
